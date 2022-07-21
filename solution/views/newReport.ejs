@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/inline.css'/>
+    <link rel="stylesheet" href="/stylesheets/bootstrap_css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/javascripts/newReport.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/idb/index.js"  type="module"></script>
+    <script src="/javascripts/database.js" type="module"></script>
+    <script src="/javascripts/app.js"></script>
+</head>
+<body>
+<div style="display: block">
+    <h1><%= title %></h1>
+    <p>Feel Free to Upload Your New Report to the News Center!</p>
+
+    <form id="xForm" onsubmit="onSubmit('/newReport'), serialiseForm()">
+        <p><label for="name"> Author name: </label>
+            <input type="text" id="name" name="name">
+        </p>
+        <p><label for="title"> Title: </label>
+            <input type="text" id="title" name="title">
+        </p>
+        <p>
+            <h3> Report Text: </h3>
+        <label for="text"></label><textarea type="text" id="text" name="text" style="width: 70%; height: 100px"></textarea>
+        <p style=" width: 100%">
+            <label for="image_url"> Image (URL) </label>
+            <input type="file" id="img" name="img">
+            <input type="text" id="image_url" name="image_url" style="display: none">
+            <script>
+                let img = null
+                document.querySelector('#img').onchange = function (e) {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(this.files[0])
+                    reader.onload = () => {
+                        img = reader.result
+                        document.getElementById("image_url").value=reader.result
+                    }
+                }
+            </script>
+
+        </p>
+        <p><input type="submit" name="data" value="Submit" id="data" ></p>
+    </form>
+    <br>
+    <button onclick='location.href=("mainPage")'>Back to main Page</button>
+    <button onclick='location.href=("/")'>Back to Index</button>
+
+</div>
+<p id="results" style="display: none"></p>
+</body>
+</html>
